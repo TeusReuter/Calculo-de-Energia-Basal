@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<title>Gasto de Energia Basal (estimativa Harris-Benedict)</title>
+</head>
+<body>
+
+		<style>
+
+		.main {
+			display: flex;
+			justify-content: flex;
+			margin: 20px;
+			font-size: 14px;
+			margin-top: 80px;
+			margin-left: 350px;
+			margin-right: 450px;
+			background-color:#d2dae2;
+			padding: 5px;
+			padding-bottom: 15px;
+			border-radius: 10px;
+		}
+
+		.lbl {
+			text-align: center;
+			margin: 1px;
+			padding: 1px;
+			width: 50px;
+		}
+
+		.txtField {
+			width: 100px;
+			background-color: #747d8c;
+			border-style: none;
+			border-radius: 10px;
+		}
+
+		.comboBox {
+			width: 50px;
+			height: 25px;
+			background-color: #c7ecee;
+			border-radius: 10px;
+
+		}
+
+		.titulo {
+			font-weight: bold; 
+			font-size: 22px; 
+			text-align: center; 
+			margin-top: 120px;
+			margin-right: 120px;
+			font-style: italic;
+		}
+
+		.titles {
+			text-align: center;
+			font-size: 22px;
+			font-weight: bold;
+			margin: 16px;
+			padding: 5px;
+		}
+
+		.result {
+			display: flex;
+			justify-content: flex-end;
+			margin-right: 300px;
+			margin-top: -20px;
+			margin-left: 10px;
+			width: 900px;
+		}
+
+		.lbl2 {
+			text-align: center;
+			padding: 1px;
+			padding-left: 10px;
+		}
+
+		.comboBox2 {
+			width: 75px;
+			height: 25px;
+			background-color: #c7ecee;	
+			border-radius: 10px;
+		}
+
+		.btn {
+			color: white;
+			background-color: black;
+			margin: 10px;
+			width: 290px;	
+			border-radius: 10px;
+			opacity: 0.8;
+			transition: 1s all;
+		}
+
+		.btn:hover {
+			color: #bdc3c7;
+			background-color:black ;
+			opacity: 1.0;
+			transform: scale(1.2);
+		}
+
+		@media (max-width:450px){
+
+			.titulo {
+				margin-top: 50px;
+				margin-right: 10px;
+			}
+
+			.main {
+				width: 50%;
+				margin-left: 100px;
+				margin-top: 30px;
+			}
+
+			.result {
+				margin-left: -535px;
+				margin-top: 200px;
+				background-color:#d2dae2;	
+				
+			}
+
+		}
+
+		@media (max-width:320px){
+
+			.main {
+				width: 55%;
+			}
+
+		}	
+
+		</style>
+
+		<div class="titulo">
+		Cálculo de Energia Basal (Harris-Benedict)
+		</div>
+
+		<div class="main">
+		<form>
+			<h1 class="titles">Entrada</h1>
+				<label for="peso" class="lbl">Peso:</label>
+				<input type="text" class="txtField" id="inputPeso" name="txtPeso">
+				<select name="peso" class="comboBox"><option>Kg</option></select><br><br>
+
+				<label for="altura" class="lbl">Altura:</label>
+				<input type="text" class="txtField" id="inputAltura" name="txtAltura">
+				<select name="altura" class="comboBox"><option>M</option></select><br><br>
+
+				<label for="idade" class="lbl">Idade:</label>
+				<input type="text" class="txtField" id="inputIdade" name="txtIdade">
+				<select name="idade" class="comboBox" style="font-size: 12px;"><option >Anos</option></select>
+		</form>
+		</div>
+
+		<div class="result">
+		<form>
+			<h2 class="titles" style="margin-top: -185px;">Resultados</h2>
+				<label for="mulheres" class="lbl2">GEB Mulheres</label>
+				<input type="text" class="txtField" id="inputMulheres" name="txtKcal">
+				<select name="resultmulheres" class="comboBox2"><option >Kcal/dia</option></select>
+				<br><br>
+
+				<label for="homens" class="lbl2">GEB Homens</label>
+				<input type="text" class="txtField" id="inputHomens" name="txtKcal" style="margin: 5px; margin-right: -2.5px;">
+				<select name="resulthomens" class="comboBox2"><option >Kcal/dia</option></select>
+				<br>
+				<input type="button" name="btnconverter" onclick="enviar()" class="btn" id="btnenviar" value="Efetuar cálculo">
+
+		</form>
+		</div>
+
+		<script>
+			
+
+			function enviar(){
+				var peso = document.getElementById("inputPeso").value;
+				var altura = document.getElementById("inputAltura").value;
+				var idade = document.getElementById("inputIdade").value;
+				
+
+				var GEBmulheres = 665.1 + (9.563 * parseFloat(peso)) + (1.85 * parseFloat(altura)) - (4.676 * parseFloat(idade));
+				var GEBHomens = 66.5 + (13.75 * parseFloat(peso)) + (5.003 * parseFloat(altura)) - (6.775 * parseFloat(idade));
+				
+				document.getElementById("inputMulheres").value = GEBmulheres;
+				document.getElementById("inputHomens").value = GEBHomens;
+			}
+
+
+			//GEB Mulheres = 655.1 + (9.563 * Peso) + (1.85 * Altura) - (4.676 * Idade)
+			//GEB Homens = 66.5 + (13.75 * Peso) + (5.003 * Altura) - (6.775 * Idade)
+
+
+		</script>
+		
+</body>
+</html>
